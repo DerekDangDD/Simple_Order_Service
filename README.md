@@ -17,38 +17,44 @@ Requirements: Python3 and pip
 4.Run `python3 -m pytest tests` to run unit tests  
 5.Run `python application/app.py`  
 
+You should be able to send a GET request to http://localhost:5000/orders  
+and it should a JSON `{"warning_log: "No Orders Found"}`
+
+**Note:** This app is defaulted to listen on port **5000**
+
 REST APIs:
 
 - Create inventory item  
-POST http://localhost:3000/inventories  
+POST http://localhost:5000/inventories  
 Creating an item requires: name, description, price and quantity. The item_id  
-auto incremented, starting at 1
+auto incremented, starting at 1  
+**Note:** only these "status" are valid `"pending", "shipped", "fulfilled", "canceled"`
 - Read all inventory items    
-GET http://localhost:3000/inventories
+GET http://localhost:5000/inventories
 - Read single inventory item
-GET http://localhost:3000/inventories/1
+GET http://localhost:5000/inventories/1
 - Update inventory item
-PUT http://localhost:3000/inventories/1  
+PUT http://localhost:5000/inventories/1  
 Any one of theses field may be used to update an inventory item: name, description, price and quantity  
 
 - Delete inventory item
-DELETE http://localhost:3000/inventories/1
+DELETE http://localhost:5000/inventories/1
 - Create order
-POST http://localhost:3000/orders
+POST http://localhost:5000/orders
 Creates an order and adjusts the inventory accordingly. If inventory levels are insufficient, the request is denied
 
 - Read all orders
-GET http://localhost:3000/orders
+GET http://localhost:5000/orders
 - Read single order
-GET http://localhost:3000/orders/1
+GET http://localhost:5000/orders/1
 - Update order
-PUT http://localhost:3000/orders/1
+PUT http://localhost:5000/orders/1
 Updates an order and adjusts the inventory accordingly. If inventory levels are insufficient, the request is denied
 
 - Delete order
-DELETE http://localhost:3000/orders/1
+DELETE http://localhost:5000/orders/1
 
-Sample work flow:
+Sample payloads:
 
 Create Item:
 ```
@@ -65,14 +71,12 @@ Update Item:
 {
   "name": "item2",
   "description": "item2",
-  "item_id": 1,
   "price": "10.99",
   "quantity": 110
 }
 ```
 
 Create Order:  
-*Note: only these status are valid `"pending", "shipped", "fulfilled", "canceled"`
 ```
 {
   "customer_email": "test@gmail.com",
@@ -113,4 +117,8 @@ Update Order:
         "order_id": 1
       }
     ]}
+```
+
+```
+{"status":"pending"}
 ```
