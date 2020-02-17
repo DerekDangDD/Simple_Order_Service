@@ -6,14 +6,16 @@ Docker Setup:
 1.Add postgres database uri in application/app.py  
 2.Build docker image `docker build -t "simple_order" .`  
 3.Run docker container `docker run -p 5000:5000 --name="simple_order" -it simple_order /bin/sh`  
-4.Run `python3 application/app.py`  
+4.Run `python3 -m pytest tests` to run unit tests  
+5.Run `python3 application/app.py`  
 
 Local Python Setup:  
 Requirements: Python3 and pip  
 1.Add postgres database uri in application/app.py  
 2.Run `python -m pip install -r requirements.txt`  
 3.Run `python setup.py install`  
-4.Run `python application/app.py`  
+4.Run `python3 -m pytest tests` to run unit tests  
+5.Run `python application/app.py`  
 
 REST APIs:
 
