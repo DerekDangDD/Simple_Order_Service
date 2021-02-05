@@ -9,7 +9,7 @@ import traceback
 @app.route('/orders', methods=['POST'])
 def create_order():
     """
-    Checks if each product in the order is in stock. Creates the Order and it's associated OrderProducts accordingly
+    Checks if each product in the order is in stock. Creates the Order and it's associated OrderProducts accordingly.
 
     Returns:
         JSON of the created order
@@ -18,7 +18,7 @@ def create_order():
     update_qty = []
     for order_product in request.json['order_products']:
         try:
-            remaining_stock = get_remaining_stock(order_product['item_id'], order_product['quantity'])
+            remaining_stock = get_remaining_stock(order_product['item_id'], order_product['item_qty'])
             if remaining_stock < 0:
                 msg = {"msg": "{} does not have the required amount in stock".format(order_product['order_id'])}
                 return msg, 400
@@ -42,7 +42,7 @@ def create_order():
         for order_product, qty in zip(request.json['order_products'], update_qty):
             new_order_product = OrderProduct(new_order.order_id,
                                              order_product['item_id'],
-                                             order_product['quantity'])
+                                             order_product['item_qty'])
             r = requests.put("{}inventories/{}".format(request.url_root,
                                                        order_product['item_id']),
                              json={
